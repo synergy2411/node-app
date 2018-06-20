@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "1.0.0",
+  "name": "node-app12",
+  "version": "7.0.0",
   "description": "My first node app",
   "main": "server.js",
   "scripts": {

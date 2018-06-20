@@ -115,5 +115,125 @@
 //     console.log("Interruption occured!")
 // })
 
-console.log(global);
+//console.log(global);
 
+
+//Events
+
+// var EventEmitter = require('events').EventEmitter;
+// var emitter = new EventEmitter();
+// on : handle/subscribe the event
+// emit : trigger the event
+// Multiple Subscription
+
+
+
+// emitter.on('newListener', function(eventName , listenerFunction){
+//     console.log(eventName + " added listener "+ listenerFunction.name);
+// })
+
+// emitter.on('removeListener', function(eventName , listenerFunction){
+//     console.log(eventName + " removed listener "+ listenerFunction.name);
+// });
+
+// emitter.on('foo', function (todo={}) {
+//     console.log("Second Handler with " + todo.status);
+//     emitter.removeListener('foo', handler1);
+// })
+
+// function handler1(){
+//     console.log("Handler Called");
+// }
+// emitter.on('foo', handler1);
+// //emitter.on('bar', handler1);
+
+// emitter.emit('foo', {status : "done"});
+// emitter.emit('foo');
+// //emitter.emit('bar');
+
+
+//Memory Leak Issue
+
+// var listenerCount = 0;
+// emitter.setMaxListeners(30);
+// function someFunc(){
+    
+//   emitter.on('foo', function(){
+//     listenerCount++;
+//     console.log(listenerCount);
+//     })
+// }
+// for(var i=0 ; i<20; i++){
+//     someFunc();
+// }
+// emitter.emit('foo');
+
+
+
+// var EventEmitter = require('events').EventEmitter;
+// var emitter = new EventEmitter();
+// var inherits = require('util').inherits;
+// function Foo(){
+//     EventEmitter.call(this);
+// }
+// inherits(Foo, EventEmitter);
+// Foo.prototype.connect = function(){
+//     this.emit('connected');
+// }
+// var foo = new Foo();
+// foo.on('connected', function(){
+//     console.log('Connected Now!');
+// })
+
+// foo.connect();
+
+
+// var EventEmitter = require('events').EventEmitter;
+// var stream = require('stream');
+// console.log(new stream.Stream() instanceof EventEmitter);   //true
+// console.log(new stream.Readable({}) instanceof stream.Stream); //true
+
+
+//TRANSFORM
+// var fs = require('fs');
+// var gzip = require('zlib').createGzip;
+// var rs = fs.createReadStream("test1.txt");
+// var ws = fs.createWriteStream("test2.txt");
+// rs.pipe(gzip()).pipe(ws);
+
+//READABLE
+// var Readable = require('stream').Readable;
+// var inherits = require('util').inherits;
+// function Counter(){
+//     Readable.call(this);
+//     this.index = 0;
+//     this.max = 100;
+// }
+// inherits(Counter, Readable);
+
+// Counter.prototype._read = function(){
+//     var i = this.index++;
+//     if(i > this.max){
+//         this.push(null);
+//     }else{
+//         var str = " " + i;
+//         this.push(str);
+//     }
+// }
+// var counter = new Counter();
+// counter.pipe(process.stdout);
+
+
+//WRITABLE
+var Writable = require('stream').Writable;
+var fs = require('fs');
+var inherits = require('util').inherits;
+function Logger(){
+    Writable.call(this);
+}
+inherits(Logger, Writable);
+Logger.prototype._write = function(chunk){
+    console.log(chunk.toString());
+}
+var logger = new Logger();
+fs.createReadStream('test1.txt').pipe(logger);
