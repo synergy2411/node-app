@@ -1,0 +1,1 @@
+document.write("Contents from JS file.");

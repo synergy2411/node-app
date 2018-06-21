@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>My App</title>
+        <script src="app.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center">
+                Login 
+            </h1>
+            <form class="well" method="POST"
+                action="http://localhost:9090/login">
+                <div class="form-group">
+                    <label for="username">Username : </label>
+                    <input type="text" name="username" 
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password : </label>
+                    <input type="text" name="password" 
+                        class="form-control">
+                </div>
+                <button type="submit" 
+                    class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </body>
+</html>
