@@ -109,7 +109,11 @@
 //             res.clearCookie('name');
 //             res.send("Cookie deleted! Was " + req.cookies.name);
 //         }else{
-//             res.cookie("name", "Foo");
+//             res.cookie("name", "Foo",{
+//                 // maxAge: 900000,
+//                 // httpOnly : true,
+//                 // signed : true
+//             });
 //             res.send("Cookie Created!");
 //         }
 //     });
