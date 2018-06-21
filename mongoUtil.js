@@ -49,5 +49,42 @@ module.exports.insertUser = function(data){
             }
         })    
     })
+}
+
+module.exports.deleteUser = function(key){
+    return new Promise(function(resolve, reject){
+        _db.collection("users").remove(key, 
+            function(err, status){
+                if(err){
+                    console.log(err);
+                }
+                //console.log(status);
+                if(status.result.n>=1){
+                    resolve(true);
+                }else{
+                    reject(false);
+                }
+            })
+    })   
+}
+
+module.exports.updateUser = function(key, updatedValue){
+    return new Promise(function(resolve, reject){
+        _db.collection('users').updateOne(key,
+            { $set: updatedValue }, 
+            function(err, result) {
+                if(err){
+                    console.log(err);
+                }
+            //console.log(result);
+            if(result){
+                resolve(true);
+            }else{
+                reject(false);
+            }
+            
+            console.log("Updated the document!");
+            });
+    })
     
 }

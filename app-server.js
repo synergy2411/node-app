@@ -16,23 +16,43 @@ app.post('/login', function(req, res){
         var username = req.body.username;
         var password = req.body.password;
         var key = {
-            "username" : req.body.username,
-            "password" : req.body.password
+            "username" : req.body.username
         }
-        debugger;
+
+        mongoUtil.updateUser(key, {"password" : "xyz@123"})
+            .then(response=>{
+                if(repsonse){
+                    res.send({status : "User record Updated"})
+                }
+            })
+
+
+
+        //DELETE USER DOCUMENT
+        // mongoUtil.deleteUser(key)
+        //     .then(function(response){
+        //         if(response){
+        //             res.send({status : "DELETED"});
+        //         }else{
+        //             res.send({status : "User does NOT exist"});
+        //         }
+        //     })
+        
+
+
         //GET SINGLE USER
         //mongoUtil.findUser(key,authUser)
-        
+
         //CREATE NEW USER
-        mongoUtil.insertUser(key)
-            .then(function(response){
-            if(response){
-                res.redirect("/register");
-            }
-            else{
-                res.redirect("/");
-            }
-        });
+        // mongoUtil.insertUser(key)
+        //     .then(function(response){
+        //     if(response){
+        //         res.redirect("/register");
+        //     }
+        //     else{
+        //         res.redirect("/");
+        //     }
+        // });
 
         //GETTING ALL USERS
         // var users = mongoUtil.getUsers();
