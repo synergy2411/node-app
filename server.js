@@ -157,7 +157,7 @@
 // var listenerCount = 0;
 // emitter.setMaxListeners(30);
 // function someFunc(){
-    
+
 //   emitter.on('foo', function(){
 //     listenerCount++;
 //     console.log(listenerCount);
@@ -225,15 +225,40 @@
 
 
 //WRITABLE
-var Writable = require('stream').Writable;
-var fs = require('fs');
-var inherits = require('util').inherits;
-function Logger(){
-    Writable.call(this);
-}
-inherits(Logger, Writable);
-Logger.prototype._write = function(chunk){
-    console.log(chunk.toString());
-}
-var logger = new Logger();
-fs.createReadStream('test1.txt').pipe(logger);
+// var Writable = require('stream').Writable;
+// var fs = require('fs');
+// var inherits = require('util').inherits;
+// function Logger(){
+//     Writable.call(this);
+// }
+// inherits(Logger, Writable);
+// Logger.prototype._write = function(chunk){
+//     console.log(chunk.toString());
+// }
+// var logger = new Logger();
+// fs.createReadStream('test1.txt').pipe(logger);
+
+var http = require('http');
+http.createServer(function (req, res) {
+res.write('Hello\n');
+res.foo.bar; // Programming error. Tried to read property 'bar' on an undefined member 'foo'
+res.end('World!');
+}).listen(3000);
+console.log("Server running on http://localhost:3000");
+
+
+
+// var express = require('express');
+// express()
+//     .use(function (req, res, next) {
+//         res.write('Hello\n');
+//         // Programming error. Tried to read property 'bar' on an undefined member 'foo'
+//         res.foo.bar;
+//         res.end('World!');
+//     })
+//     .use(function (err, req, res, next) {
+//         console.log('Error in server', err);
+//         res.end('Error!');
+//     })
+//     .listen(3000);
+// console.log("Server running on http://localhost:3000");

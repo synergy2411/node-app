@@ -36,7 +36,7 @@ module.exports.findUser = function(key,cb){
 
 module.exports.insertUser = function(data){
     return new Promise(function(resolve, reject){
-        _db.collection('user').insert(data, 
+        _db.collection('users').insert(data, 
             function(err, status){
             if (err){
                 reject(false);

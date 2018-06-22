@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Socket App</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+        <div class="container-fluid">
+            <form class="jumbotron">
+                <h1 class="text-center text-primary">Socket App</h1>
+                <div class="form-group">
+                    <textarea id="taMsg" readonly class="form-control" cols="30" rows="10"></textarea>
+                    <div class="row">
+                        <div class="col-sm-8 col-md-8 col-xs-8">
+                            <input type="text" id="txtMsg" class="form-control">
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-xs-4">
+                            <button class="btn btn-warning" id="btnSend">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <script>
+            var chatterName = prompt("Enter your name...")
+            var socket = io.connect("http://localhost:9090");
+            socket.on("acknowledge", function(msg){
+               // alert("Server Says : " + msg.status);
+            })
+            socket.emit("thanks", "Thanks for accpeting connection.");
+            $(document).ready(function(){
+                //Sending Message to Server
+                $("#btnSend").click(function(event){
+                    event.preventDefault();
+                    var message = $("#txtMsg").val();
+                    socket.emit("MsgToServer", chatterName, message);
+                    $("#txtMsg").val('');
+                })
+                //Receiving Message from Server
+                socket.on("MsgToClient", function(user, message){
+                    $("#taMsg").append(user + " : " + message+"\n");
+                })
+            })
+        </script>
+    </body>
+</html>

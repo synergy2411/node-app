@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+    <body>
+        <div>
+            <h1>EJS is working!</h1>
+            <% include ./section.ejs %>
+            <ul>
+                <% todos.forEach(function(todo){ %>
+                <li>    
+                    <%= todo.label %> - <%= todo.status %>
+                </li>
+                <% }); %>
+            </ul>
+
+        </div>
+    </body>
+</html>
